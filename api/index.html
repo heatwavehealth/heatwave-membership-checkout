@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Heat Wave Health Membership Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 1rem;
+      line-height: 1.5;
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .plans, .billing, .addons {
+      margin-bottom: 1rem;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .primary-btn {
+      background: #e86f4c; /* your coral-ish Heat Wave color */
+      color: #fff;
+    }
+    .note {
+      font-size: 0.85rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Become a Member</h1>
+  <p>Select your membership and any optional add-on programs. You’ll complete payment on our secure Stripe checkout.</p>
+
+  <div class="card">
+    <div class="plans">
+      <h2>Choose your membership</h2>
+      <label>
+        <input type="radio" name="plan" value="essence" checked />
+        Essence – $170/month or $1,800/year
+      </label><br />
+      <label>
+        <input type="radio" name="plan" value="radiance" />
+        Radiance – $295/month or $3,150/year
+      </label>
+    </div>
+
+    <div class="billing">
+      <h2>Billing preference</h2>
+      <label>
+        <input type="radio" name="billing" value="monthly" checked />
+        Monthly
+      </label><br />
+      <label>
+        <input type="radio" name="billing" value="annual" />
+        Annual (save instantly)
+      </label>
+    </div>
+
+    <div class="addons">
+      <h2>Optional add-on programs</h2>
+      <label>
+        <input type="checkbox" name="addon" value="nutrition" />
+        Nutrition & Lifestyle Optimization – $95/month
+      </label><br />
+      <label>
+        <input type="checkbox" name="addon" value="metabolic" />
+        Metabolic Reset & Weight Support – $175/month
+      </label><br />
+      <label>
+        <input type="checkbox" name="addon" value="sexual" />
+        Sexual Health & Vitality – $80/month
+      </label><br />
+      <label>
+        <input type="checkbox" name="addon" value="skinhair" />
+        Skin & Hair Wellness – $70/month
+      </label>
+    </div>
+
+    <p class="note">
+      By continuing, you acknowledge a six-month minimum membership commitment and agree that cancellation requests are reviewed by the clinic, not automatically processed.
+    </p>
+
+    <button id="checkout-button" class="primary-btn">Continue to Secure Payment</button>
+    <p id="error-message" class="note" style="color: #b00020;"></p>
+  </div>
+
+  <script>
+    const stripe = Stripe("pk_test_51SIQmt1VjhOpweopO5VPnixC41kugRkDA3j9tsaIo94jGullxnUdSHM8k4X4HdVO1COVqSRs09rYIu7NjDViY78700iMU9E4Kq");
+
+    document.getElementById('checkout-button').addEventListener('click', async () => {
+      const planEl = document.querySelector('input[name="plan"]:checked');
+      const billingEl = document.querySelector('input[name="billing"]:checked');
+      const addonEls = document.querySelectorAll('input[name="addon"]:checked');
+
+      const plan = planEl ? planEl.value : null;
+      const billing = billingEl ? billingEl.value : null;
+      const addons = Array.from(addonEls).map(el => el.value);
+
+      const errorEl = document.getElementById('error-message');
+      errorEl.textContent = '';
+
+      if (!plan || !billing) {
+        errorEl.textContent = 'Please select a membership and billing preference.';
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan, billing, addons })
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+          errorEl.textContent = data.error;
+          return;
+        }
+
+        const result = await stripe.redirectToCheckout({ sessionId: data.id });
+
+        if (result.error) {
+          errorEl.textContent = result.error.message;
+        }
+      } catch (err) {
+        console.error(err);
+        errorEl.textContent = 'Something went wrong. Please try again or contact the clinic.';
+      }
+    });
+  </script>
+</body>
+</html>
