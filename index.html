@@ -2,105 +2,390 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Heat Wave Health Membership Checkout</title>
+  <title>Heat Wave Health – Membership Checkout</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Stripe -->
   <script src="https://js.stripe.com/v3/"></script>
+
+  <!-- Montserrat (body font) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
   <style>
+    /* ===== Custom fonts – adjust filenames if needed ===== */
+  @font-face {
+  font-family: "Beautique Display";
+  src: url("/Beautique Display/BeautiqueDisplay-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Omnes Pro";
+  src: url("/omnes-2/Omnes Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+    /* ===== Brand colors ===== */
+    :root {
+      --hw-bg: #F1ECE1;           /* page background */
+      --hw-card: #EEE3D2;         /* card background */
+      --hw-accent: #964605;       /* primary button / accent */
+      --hw-accent-dark: #2A1D09;  /* hover / deep text */
+      --hw-muted: #757143;        /* muted text */
+      --hw-text: #2A1D09;         /* main text */
+      --hw-border: rgba(42, 29, 9, 0.15);
+      --hw-radius-xl: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      max-width: 720px;
-      margin: 2rem auto;
-      padding: 1rem;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--hw-bg);
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--hw-text);
+      letter-spacing: 0.01em;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 920px;
+      padding: 24px;
+    }
+
+    .card {
+      background-color: var(--hw-card);
+      border-radius: var(--hw-radius-xl);
+      border: 1px solid var(--hw-border);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.06);
+      padding: 28px 22px 30px;
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        padding: 34px 40px 36px;
+      }
+    }
+
+    .header {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--hw-muted);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-family: "Beautique Display", serif;
+      font-weight: normal;
+      letter-spacing: 0.05em;
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      margin: 0 0 10px;
+      color: var(--hw-text);
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--hw-muted);
+      max-width: 40rem;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 800px) {
+      .grid {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 28px;
+      }
+    }
+
+    .section {
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-family: "Beautique Display", serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--hw-muted);
+      margin-bottom: 10px;
+    }
+
+    .option-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--hw-border);
+      background: rgba(241, 236, 225, 0.7);
+      transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.1s ease;
+    }
+
+    .option-row:hover {
+      border-color: var(--hw-accent);
+      background: #f7efe3;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+      transform: translateY(-1px);
+    }
+
+    .option-row input[type="radio"],
+    .option-row input[type="checkbox"] {
+      accent-color: var(--hw-accent);
+      flex-shrink: 0;
+      transform: scale(1.02);
+    }
+
+    .option-label-main {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .option-label-sub {
+      font-size: 0.8rem;
+      color: var(--hw-muted);
+    }
+
+    .addons-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .note {
+      font-size: 0.8rem;
+      color: var(--hw-muted);
+      margin-top: 10px;
       line-height: 1.5;
     }
-    h1 {
-      margin-bottom: 0.5rem;
+
+    .divider {
+      height: 1px;
+      background: var(--hw-border);
+      margin: 18px 0;
     }
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1rem;
+
+    .cta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
     }
-    .plans, .billing, .addons {
-      margin-bottom: 1rem;
+
+    @media (min-width: 520px) {
+      .cta-row {
+        flex-direction: row;
+        align-items: center;
+      }
     }
-    button {
-      padding: 0.75rem 1.5rem;
+
+    button.primary-btn {
+      padding: 11px 26px;
       border-radius: 999px;
       border: none;
-      font-size: 1rem;
+      background: var(--hw-accent);
+      color: #F1ECE1;
+      font-family: "Omnes Pro", "Montserrat", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       cursor: pointer;
+      box-shadow: 0 8px 20px rgba(150, 70, 5, 0.35);
+      transition: background 0.15s ease,
+                  transform 0.1s ease,
+                  box-shadow 0.15s ease;
     }
-    .primary-btn {
-      background: #e86f4c; /* your coral-ish Heat Wave color */
-      color: #fff;
+
+    button.primary-btn:hover {
+      background: var(--hw-accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(150, 70, 5, 0.45);
     }
-    .note {
-      font-size: 0.85rem;
-      color: #555;
+
+    button.primary-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 14px rgba(150, 70, 5, 0.35);
+    }
+
+    .secure-text {
+      font-size: 0.78rem;
+      color: var(--hw-muted);
+    }
+
+    .secure-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--hw-accent);
+      margin-right: 6px;
+    }
+
+    #error-message {
+      font-size: 0.82rem;
+      color: #b00020;
+      margin-top: 4px;
     }
   </style>
 </head>
 <body>
-  <h1>Become a Member</h1>
-  <p>Select your membership and any optional add-on programs. You’ll complete payment on our secure Stripe checkout.</p>
+  <div class="shell">
+    <div class="card">
+      <div class="header">
+        <div class="eyebrow">Heat Wave Health</div>
+        <h1>Become a Member</h1>
+        <p class="subtitle">
+          Choose the membership that fits this season of your life, then add optional programs for more focused support.
+          You’ll confirm details and complete payment on our secure checkout.
+        </p>
+      </div>
 
-  <div class="card">
-    <div class="plans">
-      <h2>Choose your membership</h2>
-      <label>
-        <input type="radio" name="plan" value="essence" checked />
-        Essence – $170/month or $1,800/year
-      </label><br />
-      <label>
-        <input type="radio" name="plan" value="radiance" />
-        Radiance – $295/month or $3,150/year
-      </label>
+      <div class="grid">
+        <!-- Left column: membership + billing -->
+        <div>
+          <div class="section">
+            <div class="section-title">Membership</div>
+            <div class="option-group">
+              <label class="option-row">
+                <input type="radio" name="plan" value="essence" checked />
+                <div>
+                  <div class="option-label-main">Essence</div>
+                  <div class="option-label-sub">$170/month · $1,800/year</div>
+                </div>
+              </label>
+
+              <label class="option-row">
+                <input type="radio" name="plan" value="radiance" />
+                <div>
+                  <div class="option-label-main">Radiance</div>
+                  <div class="option-label-sub">$295/month · $3,150/year</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Billing preference</div>
+            <div class="option-group">
+              <label class="option-row">
+                <input type="radio" name="billing" value="monthly" checked />
+                <div>
+                  <div class="option-label-main">Monthly</div>
+                  <div class="option-label-sub">Billed every month.</div>
+                </div>
+              </label>
+
+              <label class="option-row">
+                <input type="radio" name="billing" value="annual" />
+                <div>
+                  <div class="option-label-main">Annual</div>
+                  <div class="option-label-sub">One payment, with savings built in.</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column: add-ons + note + CTA -->
+        <div>
+          <div class="section">
+            <div class="section-title">Optional programs</div>
+            <div class="addons-list">
+              <label class="option-row">
+                <input type="checkbox" name="addon" value="nutrition" />
+                <div>
+                  <div class="option-label-main">Nutrition & Lifestyle Optimization</div>
+                  <div class="option-label-sub">$95/month · Practical support for food, sleep, and movement.</div>
+                </div>
+              </label>
+
+              <label class="option-row">
+                <input type="checkbox" name="addon" value="metabolic" />
+                <div>
+                  <div class="option-label-main">Metabolic Reset & Weight Support</div>
+                  <div class="option-label-sub">$175/month · Lab-informed strategies for weight, energy, and insulin sensitivity.</div>
+                </div>
+              </label>
+
+              <label class="option-row">
+                <input type="checkbox" name="addon" value="sexual" />
+                <div>
+                  <div class="option-label-main">Sexual Health & Vitality</div>
+                  <div class="option-label-sub">$80/month · Support for desire, comfort, and confidence.</div>
+                </div>
+              </label>
+
+              <label class="option-row">
+                <input type="checkbox" name="addon" value="skinhair" />
+                <div>
+                  <div class="option-label-main">Skin & Hair Wellness</div>
+                  <div class="option-label-sub">$70/month · Internal support for skin clarity and hair strength.</div>
+                </div>
+              </label>
+            </div>
+
+            <p class="note">
+              A six-month minimum membership is required for clinical continuity. You may request cancellation after this period;
+              all requests are reviewed by the clinic and are not processed automatically through the portal.
+            </p>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="cta-row">
+            <button id="checkout-button" class="primary-btn">
+              Continue to secure payment
+            </button>
+            <div class="secure-text">
+              <span class="secure-dot"></span>
+              Processed by Stripe. Your card details never touch our servers.
+            </div>
+          </div>
+          <p id="error-message"></p>
+        </div>
+      </div>
     </div>
-
-    <div class="billing">
-      <h2>Billing preference</h2>
-      <label>
-        <input type="radio" name="billing" value="monthly" checked />
-        Monthly
-      </label><br />
-      <label>
-        <input type="radio" name="billing" value="annual" />
-        Annual (save instantly)
-      </label>
-    </div>
-
-    <div class="addons">
-      <h2>Optional add-on programs</h2>
-      <label>
-        <input type="checkbox" name="addon" value="nutrition" />
-        Nutrition & Lifestyle Optimization – $95/month
-      </label><br />
-      <label>
-        <input type="checkbox" name="addon" value="metabolic" />
-        Metabolic Reset & Weight Support – $175/month
-      </label><br />
-      <label>
-        <input type="checkbox" name="addon" value="sexual" />
-        Sexual Health & Vitality – $80/month
-      </label><br />
-      <label>
-        <input type="checkbox" name="addon" value="skinhair" />
-        Skin & Hair Wellness – $70/month
-      </label>
-    </div>
-
-    <p class="note">
-      By continuing, you acknowledge a six-month minimum membership commitment and agree that cancellation requests are reviewed by the clinic, not automatically processed.
-    </p>
-
-    <button id="checkout-button" class="primary-btn">Continue to Secure Payment</button>
-    <p id="error-message" class="note" style="color: #b00020;"></p>
   </div>
 
   <script>
-    const stripe = Stripe("pk_test_51SIQn31FdQuhoKM9xAG2z0ZDGDQR2l9rBxNkzSV3MTHH2duKW8V4shBDscDSNLVhCer1c8cr5aboUCFoVnQYbnWS00VHSo3jev");
+    // Replace with your real TEST publishable key (pk_test_...)
+    const stripe = Stripe("pk_test_REPLACE_WITH_YOUR_TEST_PUBLISHABLE_KEY");
 
     document.getElementById('checkout-button').addEventListener('click', async () => {
       const planEl = document.querySelector('input[name="plan"]:checked');
