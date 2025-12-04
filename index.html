@@ -17,7 +17,7 @@
   >
 
   <style>
-    /* ===== Custom fonts – paths match your folders/files ===== */
+    /* ===== Custom fonts – paths match your uploaded files ===== */
     @font-face {
       font-family: "Beautique Display";
       src: url("/Beautique Display/BeautiqueDisplay-Regular.otf") format("opentype");
@@ -32,14 +32,13 @@
       font-style: normal;
     }
 
-    /* ===== Brand colors (text all black) ===== */
+    /* ===== Colors / tokens ===== */
     :root {
       --hw-bg: #F1ECE1;           /* page background */
       --hw-card: #EEE3D2;         /* card background */
       --hw-accent: #964605;       /* primary button / accent */
-      --hw-accent-dark: #2A1D09;  /* hover / deep tone */
-      --hw-muted: #000000;        /* muted text now black */
-      --hw-text: #000000;         /* main text black */
+      --hw-accent-dark: #2A1D09;  /* button hover */
+      --hw-text: #000000;         /* all text black */
       --hw-border: rgba(0, 0, 0, 0.15);
       --hw-radius-xl: 18px;
     }
@@ -82,43 +81,40 @@
     }
 
     .header {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
-   .hero-logo {
-  position: absolute;
-  top: 26px;
-  right: 28px;
-  width: 40%;
-  height: auto;
-  max-width: 450px;
-  min-width: 220px;
-  z-index: 10;
-}
+    .hero-logo {
+      display: block;
+      width: 60%;
+      max-width: 340px;
+      height: auto;
+      margin-bottom: 18px;
+    }
 
-@media (max-width: 768px) {
-  .hero-logo {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: 60%;
-    margin-bottom: 16px;
-  }
-}
+    @media (min-width: 900px) {
+      .hero-logo {
+        width: 55%;
+        max-width: 380px;
+        margin-bottom: 22px;
+      }
+    }
+
     h1 {
       font-family: "Beautique Display", serif;
       font-weight: normal;
       letter-spacing: 0.05em;
       font-size: clamp(2rem, 3.4vw, 3rem);
       margin: 0 0 10px;
-      color: var(--hw-text); /* black */
+      color: var(--hw-text);
     }
 
     .subtitle {
       font-size: 0.95rem;
-      color: var(--hw-text); /* black */
+      color: var(--hw-text);
       max-width: 40rem;
       line-height: 1.6;
+      margin: 0;
     }
 
     .grid {
@@ -144,8 +140,8 @@
       font-size: 0.9rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--hw-text); /* black */
-      margin-bottom: 10px;
+      color: var(--hw-text);
+      margin: 0 0 10px;
     }
 
     .option-group {
@@ -186,12 +182,12 @@
     .option-label-main {
       font-size: 0.95rem;
       font-weight: 500;
-      color: var(--hw-text); /* black */
+      color: var(--hw-text);
     }
 
     .option-label-sub {
       font-size: 0.8rem;
-      color: var(--hw-text); /* black */
+      color: var(--hw-text);
     }
 
     .addons-list {
@@ -202,7 +198,7 @@
 
     .note {
       font-size: 0.8rem;
-      color: var(--hw-text); /* black */
+      color: var(--hw-text);
       margin-top: 10px;
       line-height: 1.5;
     }
@@ -258,7 +254,7 @@
 
     .secure-text {
       font-size: 0.78rem;
-      color: var(--hw-text); /* black */
+      color: var(--hw-text);
     }
 
     .secure-dot {
@@ -281,14 +277,14 @@
   <div class="shell">
     <div class="card">
       <div class="header">
-        <!-- Wordmark upper-left -->
-       <img src="/hw-wordmark.svg" alt="Heat Wave Health" class="hero-logo">
+        <!-- Hero wordmark at top (left by default) -->
+        <img src="/hw-wordmark.svg" alt="Heat Wave Health" class="hero-logo">
 
         <!-- Heading in Beautique Display -->
         <h1>Become a Member</h1>
 
         <p class="subtitle">
-          Choose the membership that fits this season of your life, then add optional programs for more focused support.
+          Choose the membership that suits you, then add optional programs for more focused support.
           You’ll confirm details and complete payment on our secure checkout.
         </p>
       </div>
