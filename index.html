@@ -85,28 +85,26 @@
       margin-bottom: 24px;
     }
 
-    .hero-logo {
-  display: block;
-  max-width: 100%;
+   .hero-logo {
+  position: absolute;
+  top: 26px;
+  right: 28px;
+  width: 40%;
   height: auto;
-  width: 46%;
-  margin-bottom: 16px;
+  max-width: 450px;
+  min-width: 220px;
+  z-index: 10;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .hero-logo {
-    width: 44%;
-    margin-bottom: 20px;
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 60%;
+    margin-bottom: 16px;
   }
 }
-
-@media (min-width: 1100px) {
-  .hero-logo {
-    width: 40%;
-    margin-bottom: 22px;
-  }
-}
-
     h1 {
       font-family: "Beautique Display", serif;
       font-weight: normal;
