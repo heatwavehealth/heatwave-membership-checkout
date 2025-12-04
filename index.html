@@ -17,30 +17,30 @@
   >
 
   <style>
-    /* ===== Custom fonts – adjust filenames if needed ===== */
-  @font-face {
-  font-family: "Beautique Display";
-  src: url("/Beautique Display/BeautiqueDisplay-Regular.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
+    /* ===== Custom fonts – paths match your folders/files ===== */
+    @font-face {
+      font-family: "Beautique Display";
+      src: url("/Beautique Display/BeautiqueDisplay-Regular.otf") format("opentype");
+      font-weight: normal;
+      font-style: normal;
+    }
 
-@font-face {
-  font-family: "Omnes Pro";
-  src: url("/omnes-2/Omnes Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
+    @font-face {
+      font-family: "Omnes Pro";
+      src: url("/omnes-2/Omnes Regular.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
 
-    /* ===== Brand colors ===== */
+    /* ===== Brand colors (text all black) ===== */
     :root {
       --hw-bg: #F1ECE1;           /* page background */
       --hw-card: #EEE3D2;         /* card background */
       --hw-accent: #964605;       /* primary button / accent */
-      --hw-accent-dark: #2A1D09;  /* hover / deep text */
-      --hw-muted: #757143;        /* muted text */
-      --hw-text: #2A1D09;         /* main text */
-      --hw-border: rgba(42, 29, 9, 0.15);
+      --hw-accent-dark: #2A1D09;  /* hover / deep tone */
+      --hw-muted: #000000;        /* muted text now black */
+      --hw-text: #000000;         /* main text black */
+      --hw-border: rgba(0, 0, 0, 0.15);
       --hw-radius-xl: 18px;
     }
 
@@ -85,12 +85,17 @@
       margin-bottom: 24px;
     }
 
-    .eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--hw-muted);
-      margin-bottom: 6px;
+    .brand-wordmark {
+      height: 40px;
+      width: auto;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .brand-wordmark {
+        height: 48px;
+      }
     }
 
     h1 {
@@ -99,12 +104,12 @@
       letter-spacing: 0.05em;
       font-size: clamp(2rem, 3.4vw, 3rem);
       margin: 0 0 10px;
-      color: var(--hw-text);
+      color: var(--hw-text); /* black */
     }
 
     .subtitle {
       font-size: 0.95rem;
-      color: var(--hw-muted);
+      color: var(--hw-text); /* black */
       max-width: 40rem;
       line-height: 1.6;
     }
@@ -132,7 +137,7 @@
       font-size: 0.9rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--hw-muted);
+      color: var(--hw-text); /* black */
       margin-bottom: 10px;
     }
 
@@ -174,11 +179,12 @@
     .option-label-main {
       font-size: 0.95rem;
       font-weight: 500;
+      color: var(--hw-text); /* black */
     }
 
     .option-label-sub {
       font-size: 0.8rem;
-      color: var(--hw-muted);
+      color: var(--hw-text); /* black */
     }
 
     .addons-list {
@@ -189,7 +195,7 @@
 
     .note {
       font-size: 0.8rem;
-      color: var(--hw-muted);
+      color: var(--hw-text); /* black */
       margin-top: 10px;
       line-height: 1.5;
     }
@@ -245,7 +251,7 @@
 
     .secure-text {
       font-size: 0.78rem;
-      color: var(--hw-muted);
+      color: var(--hw-text); /* black */
     }
 
     .secure-dot {
@@ -268,8 +274,12 @@
   <div class="shell">
     <div class="card">
       <div class="header">
-        <div class="eyebrow">Heat Wave Health</div>
+        <!-- Wordmark upper-left -->
+        <img src="/Wordmark.png" alt="Heat Wave Health" class="brand-wordmark">
+
+        <!-- Heading in Beautique Display -->
         <h1>Become a Member</h1>
+
         <p class="subtitle">
           Choose the membership that fits this season of your life, then add optional programs for more focused support.
           You’ll confirm details and complete payment on our secure checkout.
@@ -385,7 +395,7 @@
 
   <script>
     // Replace with your real TEST publishable key (pk_test_...)
-    const stripe = Stripe("pk_test_REPLACE_WITH_YOUR_TEST_PUBLISHABLE_KEY");
+    const stripe = Stripe("pk_test_51SIQn31FdQuhoKM9xAG2z0ZDGDQR2l9rBxNkzSV3MTHH2duKW8V4shBDscDSNLVhCer1c8cr5aboUCFoVnQYbnWS00VHSo3jev");
 
     document.getElementById('checkout-button').addEventListener('click', async () => {
       const planEl = document.querySelector('input[name="plan"]:checked');
