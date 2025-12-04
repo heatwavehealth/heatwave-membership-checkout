@@ -220,18 +220,52 @@
     }
 
     .cta-row {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 8px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
 
-    @media (min-width: 520px) {
-      .cta-row {
-        flex-direction: row;
-        align-items: center;
-      }
-    }
+@media (min-width: 520px) {
+  .cta-row {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.secure-text {
+  font-size: 0.78rem;
+  color: var(--hw-text);
+}
+
+/* ===== Agreement checkbox styles (PASTE BELOW HERE) ===== */
+
+.agreement-row {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: var(--hw-text);
+}
+
+.agreement-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.agreement-label input[type="checkbox"] {
+  margin-top: 2px;
+  accent-color: var(--hw-accent);
+  flex-shrink: 0;
+}
+
+.agreement-label a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.agreement-label a:hover {
+  text-decoration-thickness: 2px;
+}
 
     button.primary-btn {
       padding: 11px 26px;
@@ -389,7 +423,30 @@
           </div>
 
           <div class="divider"></div>
+          <!-- Agreement checkbox -->
+          <div class="agreement-row">
+            <label class="agreement-label">
+              <input type="checkbox" id="agreement-checkbox">
+              <span>
+                I have read and agree to the
+                <a href="https://heatwavehealth.com/membership-agreement"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  Heat Wave Health Membership Agreement
+                </a>.
+              </span>
+            </label>
+          </div>
 
+          <div class="cta-row">
+            <button id="checkout-button" class="primary-btn">
+              Continue to secure payment
+            </button>
+            <div class="secure-text">
+              Processed by Stripe. Your card details never touch our servers.
+            </div>
+          </div>
+          <p id="error-message"></p>
           <div class="cta-row">
             <button id="checkout-button" class="primary-btn">
               Continue to secure payment
