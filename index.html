@@ -456,47 +456,54 @@
     // Replace with your real TEST publishable key (pk_test_...)
     const stripe = Stripe("pk_test_51SIQn31FdQuhoKM9xAG2z0ZDGDQR2l9rBxNkzSV3MTHH2duKW8V4shBDscDSNLVhCer1c8cr5aboUCFoVnQYbnWS00VHSo3jev");
 
-    document.getElementById('checkout-button').addEventListener('click', async () => {
-      const planEl = document.querySelector('input[name="plan"]:checked');
-      const billingEl = document.querySelector('input[name="billing"]:checked');
-      const addonEls = document.querySelectorAll('input[name="addon"]:checked');
+    document.getElementById('checkout-button').addEventListener('click', async (e) => {
+  const planEl = document.querySelector('input[name="plan"]:checked');
+  const billingEl = document.querySelector('input[name="billing"]:checked');
+  const addonEls = document.querySelectorAll('input[name="addon"]:checked');
+  const agreementCheckbox = document.getElementById('agreement-checkbox');
+  const errorEl = document.getElementById('error-message');
 
-      const plan = planEl ? planEl.value : null;
-      const billing = billingEl ? billingEl.value : null;
-      const addons = Array.from(addonEls).map(el => el.value);
+  errorEl.textContent = '';
 
-      const errorEl = document.getElementById('error-message');
-      errorEl.textContent = '';
+  // HARD BLOCK: Agreement not checked
+  if (!agreementCheckbox || agreementCheckbox.checked !== true) {
+    errorEl.textContent = 'You must agree to the Membership Agreement before continuing.';
+    return; // STOP EXECUTION RIGHT HERE
+  }
 
-      if (!plan || !billing) {
-        errorEl.textContent = 'Please select a membership and billing preference.';
-        return;
-      }
+  const plan = planEl ? planEl.value : null;
+  const billing = billingEl ? billingEl.value : null;
+  const addons = Array.from(addonEls).map(el => el.value);
 
-      try {
-        const response = await fetch('/api/create-checkout-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ plan, billing, addons })
-        });
+  // HARD BLOCK: Plan & billing not selected
+  if (!plan || !billing) {
+    errorEl.textContent = 'Please select a membership and billing option.';
+    return;
+  }
 
-        const data = await response.json();
-
-        if (data.error) {
-          errorEl.textContent = data.error;
-          return;
-        }
-
-        const result = await stripe.redirectToCheckout({ sessionId: data.id });
-
-        if (result.error) {
-          errorEl.textContent = result.error.message;
-        }
-      } catch (err) {
-        console.error(err);
-        errorEl.textContent = 'Something went wrong. Please try again or contact the clinic.';
-      }
+  try {
+    const response = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan, billing, addons })
     });
+
+    const data = await response.json();
+
+    if (!response.ok || data.error) {
+      throw new Error(data.error || 'Server error');
+    }
+
+    const result = await stripe.redirectToCheckout({ sessionId: data.id });
+
+    if (result.error) {
+      errorEl.textContent = result.error.message;
+    }
+  } catch (err) {
+    console.error(err);
+    errorEl.textContent = 'Payment could not be started. Please contact the clinic.';
+  }
+});
   </script>
 </body>
 </html>
