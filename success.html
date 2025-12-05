@@ -2,12 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Membership Confirmed</title>
+  <title>Welcome to Heat Wave Health</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    @font-face {
+      font-family: "Beautique Display";
+      src: url("/Beautique Display/BeautiqueDisplay-Regular.otf") format("opentype");
+    }
+
+    @font-face {
+      font-family: "Omnes Pro";
+      src: url("/omnes-2/Omnes Regular.ttf") format("truetype");
+    }
+
+    :root {
+      --hw-bg: #F1ECE1;
+      --hw-card: #EEE3D2;
+      --hw-accent: #964605;
+      --hw-text: #000000;
+      --hw-border: rgba(0, 0, 0, 0.15);
+      --hw-radius: 18px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--hw-bg);
+      font-family: "Montserrat", system-ui, sans-serif;
+      color: var(--hw-text);
+    }
+
+    .shell {
+      max-width: 720px;
+      width: 100%;
+      padding: 24px;
+    }
+
+    .card {
+      background: var(--hw-card);
+      border: 1px solid var(--hw-border);
+      border-radius: var(--hw-radius);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.06);
+      padding: 36px 32px 40px;
+      text-align: center;
+    }
+
+    .hero-logo {
+      display: block;
+      margin: 0 auto 14px;
+      width: 52%;
+      max-width: 320px;
+      height: auto;
+    }
+
+    h1 {
+      font-family: "Beautique Display", serif;
+      font-weight: normal;
+      letter-spacing: 0.06em;
+      margin: 6px 0 14px;
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin: 0 0 20px;
+      line-height: 1.6;
+    }
+
+    .next-steps {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--hw-border);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .button-row {
+      margin-top: 24px;
+    }
+
+    a.btn {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 999px;
+      background: var(--hw-accent);
+      color: #F1ECE1;
+      text-decoration: none;
+      font-family: "Omnes Pro", "Montserrat", sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      box-shadow: 0 5px 14px rgba(150,70,5,0.25);
+    }
+
+    a.btn:hover {
+      opacity: 0.92;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Welcome to Heat Wave Health</h1>
-  <p>Your membership payment was successful.</p>
-  <p>Our team will review your information and follow up within 1–2 business days to schedule your first appointment and complete onboarding.</p>
+  <div class="shell">
+    <div class="card">
+
+      <img src="/hw-wordmark.svg" alt="Heat Wave Health" class="hero-logo">
+
+      <h1>Welcome</h1>
+
+      <p>
+        We’ve received your membership enrollment.  
+        You’ll hear from us within 1–2 business days to schedule your first appointment.
+      </p>
+
+      <div class="next-steps">
+        In the meantime, please keep an eye on your email for:
+        <br>• Your welcome message  
+        <br>• Intake instructions  
+        <br>• Portal access
+      </div>
+
+      <div class="button-row">
+        <a href="https://heatwavehealth.com" class="btn">Return to Website</a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
