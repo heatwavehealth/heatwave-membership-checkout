@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
 
     // ====== EDIT THIS BLOCK WITH YOUR REAL STRIPE PRICE IDS ======
     const PRICE_IDS = {
-      essence_monthly: 'price_1SUZjX1VjhOpweopY6Zp56ETP',
+      essence_monthly: 'price_1SUZjX1VjhOpweopY6Zp56ET',
       essence_annual: 'price_1SaIka1VjhOpweopvKRYv5B7',
       radiance_monthly: 'price_1SUbJU1VjhOpweopDoB4Ekj0',
       radiance_annual: 'price_1SaImK1VjhOpweopFAZeDi0s',
