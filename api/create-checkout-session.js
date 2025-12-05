@@ -24,14 +24,14 @@ module.exports = async (req, res) => {
 
     // ====== EDIT THIS BLOCK WITH YOUR REAL STRIPE PRICE IDS ======
     const PRICE_IDS = {
-      essence_monthly: 'price_1SIQtc1FdQuhoKM9V5YlgnIP',
-      essence_annual: 'price_1SaWn21FdQuhoKM95pRQXpc2',
-      radiance_monthly: 'price_1SIQv81FdQuhoKM9dj67l4v4',
-      radiance_annual: 'price_1SaWtB1FdQuhoKM98VQAs0MJ',
-      addon_nutrition: 'price_1SIQwT1FdQuhoKM9wNxU9w1g',
-      addon_metabolic: 'price_1SIQyP1FdQuhoKM9S7TjiVkN',
-      addon_sexual: 'price_1SIQz01FdQuhoKM9852vT1z8',
-      addon_skinhair: 'price_1SIQzk1FdQuhoKM9a3GPMcp0'
+      essence_monthly: 'price_1SUZjX1VjhOpweopY6Zp56ETP',
+      essence_annual: 'price_1SaIka1VjhOpweopvKRYv5B7',
+      radiance_monthly: 'price_1SUbJU1VjhOpweopDoB4Ekj0',
+      radiance_annual: 'price_1SaImK1VjhOpweopFAZeDi0s',
+      addon_nutrition: 'price_1SUa041VjhOpweopLlPfDDa6',
+      addon_metabolic: 'price_1SUaXs1VjhOpweoprk3QWR6H',
+      addon_sexual: 'price_1SUaZi1VjhOpweop6Nnt8KiF',
+      addon_skinhair: 'price_1SUacP1VjhOpweoplkuhXPiu'
     };
     // ====== STOP EDITING HERE – REST OF FILE STAYS AS-IS ======
 
