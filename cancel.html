@@ -2,11 +2,151 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Checkout Canceled</title>
+  <title>Heat Wave Health – Checkout Canceled</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    @font-face {
+      font-family: "Beautique Display";
+      src: url("/Beautique Display/BeautiqueDisplay-Regular.otf") format("opentype");
+    }
+
+    @font-face {
+      font-family: "Omnes Pro";
+      src: url("/omnes-2/Omnes Regular.ttf") format("truetype");
+    }
+
+    :root {
+      --hw-bg: #F1ECE1;
+      --hw-card: #EEE3D2;
+      --hw-accent: #964605;
+      --hw-text: #000000;
+      --hw-border: rgba(0, 0, 0, 0.15);
+      --hw-radius: 18px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--hw-bg);
+      font-family: "Montserrat", system-ui, sans-serif;
+      color: var(--hw-text);
+    }
+
+    .shell {
+      max-width: 720px;
+      width: 100%;
+      padding: 24px;
+    }
+
+    .card {
+      background: var(--hw-card);
+      border: 1px solid var(--hw-border);
+      border-radius: var(--hw-radius);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.06);
+      padding: 36px 32px 40px;
+      text-align: center;
+    }
+
+    .hero-logo {
+      display: block;
+      margin: 0 auto 14px;
+      width: 52%;
+      max-width: 320px;
+      height: auto;
+    }
+
+    h1 {
+      font-family: "Beautique Display", serif;
+      font-weight: normal;
+      letter-spacing: 0.06em;
+      margin: 6px 0 14px;
+      font-size: clamp(1.8rem, 2.8vw, 2.3rem);
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin: 0 0 18px;
+      line-height: 1.6;
+    }
+
+    .note {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-top: 6px;
+    }
+
+    .button-row {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    a.btn {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 999px;
+      background: var(--hw-accent);
+      color: #F1ECE1;
+      text-decoration: none;
+      font-family: "Omnes Pro", "Montserrat", sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      box-shadow: 0 5px 14px rgba(150,70,5,0.25);
+    }
+
+    a.btn.secondary {
+      background: transparent;
+      color: var(--hw-text);
+      box-shadow: none;
+      border: 1px solid var(--hw-border);
+    }
+
+    a.btn:hover {
+      opacity: 0.92;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Checkout Canceled</h1>
-  <p>Your membership checkout was canceled. If this was a mistake, you can restart the process from our website.</p>
+  <div class="shell">
+    <div class="card">
+
+      <img src="/hw-wordmark.svg" alt="Heat Wave Health" class="hero-logo">
+
+      <h1>Checkout Canceled</h1>
+
+      <p>
+        Your membership checkout was canceled before payment was completed.
+      </p>
+
+      <p class="note">
+        If you weren’t ready to enroll today, that’s completely okay.
+        When you’re ready, you can restart checkout in just a few clicks.
+        If you have questions about membership, coverage, or whether Heat Wave
+        is the right fit, we’re happy to talk things through with you.
+      </p>
+
+      <div class="button-row">
+        <a href="https://heatwavehealth.com" class="btn secondary">Return to Website</a>
+        <a href="https://heatwave-membership-checkout.vercel.app" class="btn">Restart Checkout</a>
+      </div>
+
+    </div>
+  </div>
 </body>
 </html>
