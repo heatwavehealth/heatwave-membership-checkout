@@ -454,7 +454,24 @@
 
   <script>
     // Replace with your real TEST publishable key (pk_test_...)
-    const stripe = Stripe("pk_live_51SfcqPAQMgf0dKsA2YCzuM1dOKZVwXvbjVWD7mqDujSahwewowIn07aZ5qMfdsTJUkYB4TVLcGzC8YJ7gG9WtL6400745hm6E1");
+    let stripe;
+
+async function initStripe() {
+  const res = await fetch("/api/config");
+  const data = await res.json();
+
+  if (!data.publishableKey) {
+    throw new Error("Stripe publishable key not available.");
+  }
+
+  stripe = Stripe(data.publishableKey);
+}
+
+initStripe().catch((e) => {
+  const errorEl = document.getElementById("error-message");
+  if (errorEl) errorEl.textContent = "Payment setup error. Please contact the clinic.";
+  console.error(e);
+});
 
     document.getElementById('checkout-button').addEventListener('click', async (e) => {
   const planEl = document.querySelector('input[name="plan"]:checked');
@@ -462,6 +479,11 @@
   const addonEls = document.querySelectorAll('input[name="addon"]:checked');
   const agreementCheckbox = document.getElementById('agreement-checkbox');
   const errorEl = document.getElementById('error-message');
+  
+  if (!stripe) {
+    errorEl.textContent = "Payment is still loading. Please try again in a moment.";
+    return;
+  }
 
   errorEl.textContent = '';
 
