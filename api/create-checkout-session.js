@@ -33,6 +33,7 @@ module.exports = async (req, res) => {
   addon_sexual: process.env.PRICE_ADDON_SEXUAL,
   addon_skinhair: process.env.PRICE_ADDON_SKINHAIR,
 };
+    const PRICE_IDS = PRICE_MAP;
     for (const [k, v] of Object.entries(PRICE_MAP)) {
   if (!v) {
     throw new Error(`Missing env var for PRICE_MAP.${k}. Check Vercel env vars.`);
