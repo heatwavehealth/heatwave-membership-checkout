@@ -23,16 +23,21 @@ module.exports = async (req, res) => {
     const { plan, billing, addons } = body;
 
     // ====== EDIT THIS BLOCK WITH YOUR REAL STRIPE PRICE IDS ======
-    const PRICE_IDS = {
-      essence_monthly: 'price_1Sk9ksAQMgf0dKsAXrhMTJXr',
-      essence_annual: 'price_1Sk9k7AQMgf0dKsAU4hlS5W5',
-      radiance_monthly: 'price_1Sk9m9AQMgf0dKsAdr01j8Mw',
-      radiance_annual: 'price_1Sk9lRAQMgf0dKsAdf1vcV8L',
-      addon_nutrition: 'price_1Sk9neAQMgf0dKsA0BEYJ4T1',
-      addon_metabolic: 'price_1Sk9nMAQMgf0dKsADQiUaD1K',
-      addon_sexual: 'price_1Sk9mzAQMgf0dKsA1P266sR2',
-      addon_skinhair: 'price_1Sk9mgAQMgf0dKsAnm5qBeeU'
-    };
+ const PRICE_MAP = {
+  essence_monthly: process.env.PRICE_ESSENCE_MONTHLY,
+  essence_annual: process.env.PRICE_ESSENCE_ANNUAL,
+  radiance_monthly: process.env.PRICE_RADIANCE_MONTHLY,
+  radiance_annual: process.env.PRICE_RADIANCE_ANNUAL,
+  addon_nutrition: process.env.PRICE_ADDON_NUTRITION,
+  addon_metabolic: process.env.PRICE_ADDON_METABOLIC,
+  addon_sexual: process.env.PRICE_ADDON_SEXUAL,
+  addon_skinhair: process.env.PRICE_ADDON_SKINHAIR,
+};
+    for (const [k, v] of Object.entries(PRICE_MAP)) {
+  if (!v) {
+    throw new Error(`Missing env var for PRICE_MAP.${k}. Check Vercel env vars.`);
+  }
+}
     // ====== STOP EDITING HERE – REST OF FILE STAYS AS-IS ======
 
     const line_items = [];
