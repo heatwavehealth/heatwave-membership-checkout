@@ -1,8 +1,7 @@
 {
   "name": "heatwave-membership-checkout",
   "version": "1.0.0",
-  "description": "Heat Wave Health membership checkout",
-  "main": "index.js",
+  "private": true,
   "dependencies": {
     "stripe": "^16.0.0",
     "nodemailer": "^6.9.15",
