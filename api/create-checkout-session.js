@@ -1,6 +1,8 @@
 // api/create-checkout-session.js
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2025-07-30.basil',
+});
 
 // This is the backend function Vercel runs for /api/create-checkout-session
 // It expects JSON like:
@@ -105,11 +107,16 @@ const billingLabel =
 
     const session = await stripe.checkout.sessions.create({
   mode: 'subscription',
-  billing_address_collection: 'required',
+  subscription_data: {
+    billing_mode: { type: 'flexible' }
+  },
   line_items,
   success_url: `${FRONTEND_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
   cancel_url: `${FRONTEND_URL}/cancel.html`,
+  billing_address_collection: 'required',
   allow_promotion_codes: true,
+  metadata: { ... }
+});
 
   // 👇 HUMAN-READABLE METADATA FOR MAKE
 metadata: {
