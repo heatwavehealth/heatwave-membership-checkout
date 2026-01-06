@@ -107,20 +107,26 @@ const billingLabel =
 
     const session = await stripe.checkout.sessions.create({
   mode: 'subscription',
+
+  // Allows annual base + monthly add-ons
   subscription_data: {
-    billing_mode: { type: 'flexible' }
+    billing_mode: { type: 'flexible' },
+    metadata: {
+      plan: String(plan || ''),
+      billing: billing === 'monthly' ? 'Monthly' : 'Annual',
+      addons: (selectedAddons && selectedAddons.length) ? selectedAddons.join(', ') : 'None',
+      service_state: String(service_state || ''),
+      state_attestation: 'true'
+    }
   },
+
   line_items,
+
   success_url: `${FRONTEND_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
   cancel_url: `${FRONTEND_URL}/cancel.html`,
+
   billing_address_collection: 'required',
-  allow_promotion_codes: true,
-  metadata: {
-  plan: plan,
-  billing: billing,
-  addons: (selectedAddons && selectedAddons.length) ? selectedAddons.join(', ') : 'None',
-  service_state: service_state
-}
+  allow_promotion_codes: true
 });
 
   // 👇 HUMAN-READABLE METADATA FOR MAKE
