@@ -105,16 +105,18 @@ const billingLabel =
 
     const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
-    const session = await stripe.checkout.sessions.create({
+  const session = await stripe.checkout.sessions.create({
   mode: 'subscription',
 
-  // Allows annual base + monthly add-ons
+  // Allows annual base + monthly add-ons (flexible billing)
   subscription_data: {
     billing_mode: { type: 'flexible' },
     metadata: {
       plan: String(plan || ''),
       billing: billing === 'monthly' ? 'Monthly' : 'Annual',
-      addons: (selectedAddons && selectedAddons.length) ? selectedAddons.join(', ') : 'None',
+      addons: (selectedAddons && selectedAddons.length)
+        ? selectedAddons.join(', ')
+        : 'None',
       service_state: String(service_state || ''),
       state_attestation: 'true'
     }
