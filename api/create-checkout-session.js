@@ -22,6 +22,17 @@ module.exports = async (req, res) => {
 
     const { plan, billing, addons } = body;
 
+    // Human-readable labels for metadata + emails
+const planLabel =
+  plan === 'essence' ? 'Essence' :
+  plan === 'radiance' ? 'Radiance' :
+  'Unknown';
+
+const billingLabel =
+  billing === 'monthly' ? 'Monthly' :
+  billing === 'annual' ? 'Annual' :
+  'Unknown';
+
     // ====== EDIT THIS BLOCK WITH YOUR REAL STRIPE PRICE IDS ======
  const PRICE_MAP = {
   essence_monthly: process.env.PRICE_ESSENCE_MONTHLY,
@@ -87,13 +98,20 @@ module.exports = async (req, res) => {
     const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
     const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
-      line_items,
-      success_url: `${FRONTEND_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${FRONTEND_URL}/cancel.html`,
-      billing_address_collection: 'required',
-      allow_promotion_codes: true
-    });
+  mode: 'subscription',
+  billing_address_collection: 'required',
+  line_items,
+  success_url: `${FRONTEND_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+  cancel_url: `${FRONTEND_URL}/cancel.html`,
+  allow_promotion_codes: true,
+
+  // 👇 HUMAN-READABLE METADATA FOR MAKE
+metadata: {
+  plan: plan === 'essence' ? 'Essence' : 'Radiance',
+  billing: billing === 'monthly' ? 'Monthly' : 'Annual',
+  addons: selectedAddons.length ? selectedAddons.join(', ') : 'None'
+}
+});
 
     res.status(200).json({ id: session.id });
   } catch (err) {
