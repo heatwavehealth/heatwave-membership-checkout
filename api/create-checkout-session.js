@@ -20,7 +20,13 @@ module.exports = async (req, res) => {
         ? JSON.parse(req.body || '{}')
         : (req.body || {});
 
-    const { plan, billing, addons } = body;
+    const { plan, billing, addons, service_state } = body;
+    // WA/OR eligibility enforcement (server-side)
+const allowedStates = ['WA', 'OR'];
+
+if (!allowedStates.includes(service_state)) {
+  return res.status(400).json({ error: 'Heat Wave Health currently provides care only in WA and OR.' });
+}
 
     // Human-readable labels for metadata + emails
 const planLabel =
@@ -109,7 +115,8 @@ const billingLabel =
 metadata: {
   plan: plan === 'essence' ? 'Essence' : 'Radiance',
   billing: billing === 'monthly' ? 'Monthly' : 'Annual',
-  addons: selectedAddons.length ? selectedAddons.join(', ') : 'None'
+  addons: selectedAddons.length ? selectedAddons.join(', ') : 'None', 
+  service_state: service_state,
 }
 });
 
