@@ -115,7 +115,12 @@ const billingLabel =
   cancel_url: `${FRONTEND_URL}/cancel.html`,
   billing_address_collection: 'required',
   allow_promotion_codes: true,
-  metadata: { ... }
+  metadata: {
+  plan: plan,
+  billing: billing,
+  addons: (selectedAddons && selectedAddons.length) ? selectedAddons.join(', ') : 'None',
+  service_state: service_state
+}
 });
 
   // 👇 HUMAN-READABLE METADATA FOR MAKE
