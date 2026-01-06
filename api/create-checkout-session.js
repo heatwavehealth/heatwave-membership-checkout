@@ -91,7 +91,7 @@ module.exports = async (req, res) => {
       line_items,
       success_url: `${FRONTEND_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${FRONTEND_URL}/cancel.html`,
-      billing_address_collection: 'auto',
+      billing_address_collection: 'required',
       allow_promotion_codes: true
     });
 
