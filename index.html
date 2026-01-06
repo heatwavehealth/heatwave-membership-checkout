@@ -550,7 +550,7 @@ initStripe().catch((e) => {
     const response = await fetch('/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ plan, billing, addons, service_state, state_attestation: true })
+            body: JSON.stringify({ plan, billing, addons, service_state })
     });
 
     const data = await response.json();
