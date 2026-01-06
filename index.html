@@ -239,7 +239,23 @@
 }
 
 /* ===== Agreement checkbox styles (PASTE BELOW HERE) ===== */
-
+    
+/* ===== WA/OR dropdown styles ===== */
+#service-state {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--hw-border);
+  background: rgba(241, 236, 225, 0.7);
+  color: var(--hw-text);
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+#service-state:focus {
+  outline: none;
+  border-color: var(--hw-accent);
+  box-shadow: 0 0 0 3px rgba(150, 70, 5, 0.15);
+}
 .agreement-row {
   margin-bottom: 10px;
   font-size: 0.8rem;
@@ -437,7 +453,29 @@
               </span>
             </label>
           </div>
+<!-- WA/OR eligibility -->
+<div class="agreement-row">
+  <label for="service-state" class="option-label-main" style="display:block; margin-bottom:8px;">
+    State where you are located
+  </label>
 
+  <select id="service-state" required>
+    <option value="">Select your state</option>
+    <option value="WA">Washington (WA)</option>
+    <option value="OR">Oregon (OR)</option>
+    <option value="OTHER">Other</option>
+  </select>
+</div>
+
+<div class="agreement-row">
+  <label class="agreement-label">
+    <input type="checkbox" id="state-attestation" />
+    <span>By checking this box, I confirm that I am physically located in Washington (WA) or Oregon (OR).</span>
+  </label>
+  <div id="state-error" style="display:none; font-size:0.82rem; color:#b00020; margin-top:6px;">
+    Heat Wave Health currently provides care only in Washington (WA) and Oregon (OR).
+  </div>
+</div>
           <div class="cta-row">
             <button id="checkout-button" class="primary-btn">
               Continue to secure payment
@@ -479,7 +517,9 @@ initStripe().catch((e) => {
   const addonEls = document.querySelectorAll('input[name="addon"]:checked');
   const agreementCheckbox = document.getElementById('agreement-checkbox');
   const errorEl = document.getElementById('error-message');
-  
+    const stateEl = document.getElementById('service-state');
+  const stateAttestation = document.getElementById('state-attestation');
+  const stateError = document.getElementById('state-error');
   if (!stripe) {
     errorEl.textContent = "Payment is still loading. Please try again in a moment.";
     return;
@@ -492,7 +532,18 @@ initStripe().catch((e) => {
     errorEl.textContent = 'You must agree to the Membership Agreement before continuing.';
     return; // STOP EXECUTION RIGHT HERE
   }
+  // HARD BLOCK: WA/OR eligibility
+  const service_state = stateEl ? stateEl.value : '';
+  const allowedState = (service_state === 'WA' || service_state === 'OR');
 
+  if (!allowedState || !stateAttestation || stateAttestation.checked !== true) {
+    if (stateError) stateError.style.display = 'block';
+    errorEl.textContent = 'You must confirm you are located in WA or OR before continuing.';
+    return; // STOP EXECUTION
+  }
+
+  if (stateError) stateError.style.display = 'none';
+      
   const plan = planEl ? planEl.value : null;
   const billing = billingEl ? billingEl.value : null;
   const addons = Array.from(addonEls).map(el => el.value);
@@ -507,7 +558,7 @@ initStripe().catch((e) => {
     const response = await fetch('/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan, billing, addons })
+            body: JSON.stringify({ plan, billing, addons, service_state, state_attestation: true })
     });
 
     const data = await response.json();
