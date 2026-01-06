@@ -453,6 +453,7 @@
               </span>
             </label>
           </div>
+          
 <!-- WA/OR eligibility -->
 <div class="agreement-row">
   <label for="service-state" class="option-label-main" style="display:block; margin-bottom:8px;">
@@ -463,19 +464,10 @@
     <option value="">Select your state</option>
     <option value="WA">Washington (WA)</option>
     <option value="OR">Oregon (OR)</option>
-    <option value="OTHER">Other</option>
   </select>
 </div>
 
-<div class="agreement-row">
-  <label class="agreement-label">
-    <input type="checkbox" id="state-attestation" />
-    <span>By checking this box, I confirm that I am physically located in Washington (WA) or Oregon (OR).</span>
-  </label>
-  <div id="state-error" style="display:none; font-size:0.82rem; color:#b00020; margin-top:6px;">
-    Heat Wave Health currently provides care only in Washington (WA) and Oregon (OR).
-  </div>
-</div>
+          
           <div class="cta-row">
             <button id="checkout-button" class="primary-btn">
               Continue to secure payment
@@ -536,11 +528,11 @@ initStripe().catch((e) => {
   const service_state = stateEl ? stateEl.value : '';
   const allowedState = (service_state === 'WA' || service_state === 'OR');
 
-  if (!allowedState || !stateAttestation || stateAttestation.checked !== true) {
-    if (stateError) stateError.style.display = 'block';
-    errorEl.textContent = 'You must confirm you are located in WA or OR before continuing.';
-    return; // STOP EXECUTION
-  }
+ if (!allowedState) {
+  if (stateError) stateError.style.display = 'block';
+  errorEl.textContent = 'At this time, Heat Wave Health provides care only in WA and OR.';
+  return;
+}
 
   if (stateError) stateError.style.display = 'none';
       
