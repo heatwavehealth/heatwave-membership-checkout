@@ -506,7 +506,7 @@ initStripe().catch((e) => {
   }
 const service_state = (stateSelect?.value || '').trim();
 if (!service_state) {
-  errorEl.textContent = 'Please select WA or OR before continuing.';
+  errorEl.textContent = 'Please select your state before continuing.';
   return;
 }
   const plan = planEl ? planEl.value : null;
