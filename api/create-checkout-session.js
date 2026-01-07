@@ -83,28 +83,30 @@ module.exports = async (req, res) => {
     const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
     // ===== Create Checkout Session =====
-    const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
+   const session = await stripe.checkout.sessions.create({
+  mode: 'subscription',
 
-      // Enables annual base + monthly add-ons in one subscription
-      subscription_data: {
-        billing_mode: { type: 'flexible' },
-        metadata: {
-          plan: planLabel,
-          billing: billingLabel,
-          addons: selectedAddons.length ? selectedAddons.join(', ') : 'None',
-          service_state: String(service_state || ''),
-        },
-      },
+  // ✅ Enable flexible billing on the CHECKOUT SESSION
+  billing_mode: { type: 'flexible' },
 
-      line_items,
+  // Keep metadata here (no billing_mode inside subscription_data)
+  subscription_data: {
+    metadata: {
+      plan: planLabel,
+      billing: billingLabel,
+      addons: selectedAddons.length ? selectedAddons.join(', ') : 'None',
+      service_state: String(service_state || ''),
+    },
+  },
 
-      success_url: `${FRONTEND_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${FRONTEND_URL}/cancel.html`,
+  line_items,
 
-      billing_address_collection: 'required',
-      allow_promotion_codes: true,
-    });
+  success_url: `${FRONTEND_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+  cancel_url: `${FRONTEND_URL}/cancel.html`,
+
+  billing_address_collection: 'required',
+  allow_promotion_codes: true,
+});
 
     return res.status(200).json({ id: session.id });
   } catch (err) {
