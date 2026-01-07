@@ -14,7 +14,14 @@ module.exports = async (req, res) => {
         ? JSON.parse(req.body || '{}')
         : (req.body || {});
 
-    const { plan, billing, service_state } = body;
+    const { plan, billing, addons, service_state } = body;
+    // WA/OR eligibility enforcement (server-side)
+const allowedStates = ['WA', 'OR'];
+if (!allowedStates.includes(String(service_state || '').toUpperCase())) {
+  return res.status(400).json({
+    error: 'Heat Wave Health currently provides care only in WA and OR.'
+  });
+}
 
     // Minimal validation (keep it forgiving for now)
     if (!plan || !billing) {
