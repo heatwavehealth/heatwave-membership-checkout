@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Heat Wave Health – Membership Checkout</title>
+  <title>Heat Wave Health – Join</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Stripe -->
@@ -32,20 +32,17 @@
       font-style: normal;
     }
 
-    /* ===== Colors / tokens ===== */
     :root {
-      --hw-bg: #F1ECE1;           /* page background */
-      --hw-card: #EEE3D2;         /* card background */
-      --hw-accent: #964605;       /* primary button / accent */
-      --hw-accent-dark: #2A1D09;  /* button hover */
-      --hw-text: #000000;         /* all text black */
+      --hw-bg: #F1ECE1;
+      --hw-card: #EEE3D2;
+      --hw-accent: #964605;
+      --hw-accent-dark: #2A1D09;
+      --hw-text: #000000;
       --hw-border: rgba(0, 0, 0, 0.15);
       --hw-radius-xl: 18px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -75,38 +72,26 @@
     }
 
     @media (min-width: 768px) {
-      .card {
-        padding: 34px 40px 36px;
-      }
+      .card { padding: 34px 40px 36px; }
     }
 
- .header {
-  margin-bottom: 36px;
-}
-
-.header h1,
-.header .subtitle {
-  text-align: left;
-}
-
-.hero-logo {
-  margin-left: auto;
-  margin-right: auto;
-}
+    .header {
+      margin-bottom: 22px;
+    }
 
     .hero-logo {
-  display: block;
-  margin: 0 auto 12px;
-  width: 52%;
-  max-width: 340px;
-  height: auto;
-}
+      display: block;
+      margin: 0 auto 10px;
+      width: 48%;
+      max-width: 340px;
+      height: auto;
+    }
 
     @media (min-width: 900px) {
       .hero-logo {
-        width: 55%;
+        width: 52%;
         max-width: 380px;
-        margin-bottom: 22px;
+        margin-bottom: 14px;
       }
     }
 
@@ -115,34 +100,26 @@
       font-weight: normal;
       letter-spacing: 0.05em;
       font-size: clamp(2rem, 3.4vw, 3rem);
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       color: var(--hw-text);
+      text-align: left;
     }
 
     .subtitle {
       font-size: 0.95rem;
-      color: var(--hw-text);
-      max-width: 40rem;
       line-height: 1.6;
       margin: 0;
+      max-width: 44rem;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-      margin-top: 18px;
-    }
-
-    @media (min-width: 800px) {
-      .grid {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-        gap: 28px;
-      }
+    .divider {
+      height: 1px;
+      background: var(--hw-border);
+      margin: 18px 0;
     }
 
     .section {
-      margin-bottom: 18px;
+      margin-top: 18px;
     }
 
     .section-title {
@@ -150,29 +127,33 @@
       font-size: 0.9rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--hw-text);
       margin: 0 0 10px;
+      color: var(--hw-text);
     }
 
     .option-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 820px) {
+      .option-group {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
     }
 
     .option-row {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
       border: 1px solid var(--hw-border);
       background: rgba(241, 236, 225, 0.7);
-      transition:
-        border-color 0.15s ease,
-        background-color 0.15s ease,
-        box-shadow 0.15s ease,
-        transform 0.1s ease;
+      transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+      cursor: pointer;
     }
 
     .option-row:hover {
@@ -182,108 +163,127 @@
       transform: translateY(-1px);
     }
 
-    .option-row input[type="radio"],
-    .option-row input[type="checkbox"] {
+    .option-row input[type="radio"] {
       accent-color: var(--hw-accent);
+      margin-top: 2px;
       flex-shrink: 0;
-      transform: scale(1.02);
+      transform: scale(1.05);
     }
 
     .option-label-main {
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 0.98rem;
+      font-weight: 600;
       color: var(--hw-text);
+      line-height: 1.2;
     }
 
     .option-label-sub {
-      font-size: 0.8rem;
+      font-size: 0.84rem;
       color: var(--hw-text);
+      line-height: 1.5;
+      margin-top: 4px;
+      opacity: 0.92;
     }
 
-    .addons-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .price-line {
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-top: 6px;
     }
 
     .note {
-      font-size: 0.8rem;
-      color: var(--hw-text);
-      margin-top: 10px;
-      line-height: 1.5;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      margin: 10px 0 0;
+      opacity: 0.92;
     }
 
-    .divider {
-      height: 1px;
-      background: var(--hw-border);
-      margin: 18px 0;
+    /* Agreement rows */
+    .agreement-row {
+      margin-top: 10px;
+      font-size: 0.82rem;
+    }
+
+    .agreement-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .agreement-label input[type="checkbox"] {
+      margin-top: 2px;
+      accent-color: var(--hw-accent);
+      flex-shrink: 0;
+    }
+
+    .agreement-label a {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      color: var(--hw-text);
+    }
+
+    .agreement-label a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    /* State dropdown line */
+    .state-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--hw-border);
+      background: rgba(241, 236, 225, 0.7);
+    }
+
+    .state-row label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      min-width: 130px;
+    }
+
+    .state-row select {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: #fff;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.9rem;
     }
 
     .cta-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
-}
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
 
-@media (min-width: 520px) {
-  .cta-row {
-    flex-direction: row;
-    align-items: center;
-  }
-}
+    @media (min-width: 520px) {
+      .cta-row {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
 
-.secure-text {
-  font-size: 0.78rem;
-  color: var(--hw-text);
-}
-
-/* ===== Agreement checkbox styles (PASTE BELOW HERE) ===== */
-
-.agreement-row {
-  margin-bottom: 10px;
-  font-size: 0.8rem;
-  color: var(--hw-text);
-}
-
-.agreement-label {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.agreement-label input[type="checkbox"] {
-  margin-top: 2px;
-  accent-color: var(--hw-accent);
-  flex-shrink: 0;
-}
-
-.agreement-label a {
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.agreement-label a:hover {
-  text-decoration-thickness: 2px;
-}
-
-  button.primary-btn {
-  padding: 8px 20px;
-  border-radius: 999px;
-  border: none;
-  background: var(--hw-accent);
-  color: #F1ECE1;
-  font-family: "Omnes Pro", "Montserrat", sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 5px 14px rgba(150, 70, 5, 0.25);
-  transition: background 0.15s ease,
-              transform 0.1s ease,
-              box-shadow 0.15s ease;
-}
+    button.primary-btn {
+      padding: 8px 20px;
+      border-radius: 999px;
+      border: none;
+      background: var(--hw-accent);
+      color: #F1ECE1;
+      font-family: "Omnes Pro", "Montserrat", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 5px 14px rgba(150, 70, 5, 0.25);
+      transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+      white-space: nowrap;
+    }
 
     button.primary-btn:hover {
       background: var(--hw-accent-dark);
@@ -298,250 +298,206 @@
 
     .secure-text {
       font-size: 0.78rem;
-      color: var(--hw-text);
-    }
-
-    .secure-dot {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--hw-accent);
-      margin-right: 6px;
+      opacity: 0.95;
+      line-height: 1.4;
     }
 
     #error-message {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: #b00020;
-      margin-top: 4px;
+      margin-top: 8px;
+      min-height: 1.2em;
     }
   </style>
 </head>
+
 <body>
   <div class="shell">
     <div class="card">
+
       <div class="header">
-        <!-- Hero wordmark at top (left by default) -->
         <img src="/hw-wordmark.svg" alt="Heat Wave Health" class="hero-logo">
 
-        <!-- Heading in Beautique Display -->
+        <h1>Join Heat Wave Health</h1>
 
         <p class="subtitle">
-          Choose the membership that suits you, then add optional programs for more focused support.
-          You’ll confirm details and complete payment on our secure checkout.
+          Choose your membership and billing preference below. After enrollment, you’ll have the option to add
+          optional monthly programs (Nutrition, Metabolic Health, Sexual Wellness, Skin & Hair) to personalize care.
         </p>
       </div>
 
-      <div class="grid">
-        <!-- Left column: membership + billing -->
-        <div>
-          <div class="section">
-            <div class="section-title">Membership</div>
-            <div class="option-group">
-              <label class="option-row">
-                <input type="radio" name="plan" value="essence" checked />
-                <div>
-                  <div class="option-label-main">Essence</div>
-                  <div class="option-label-sub">$170/month · $1,800/year</div>
-                </div>
-              </label>
+      <div class="section">
+        <div class="section-title">Choose your membership</div>
 
-              <label class="option-row">
-                <input type="radio" name="plan" value="radiance" />
-                <div>
-                  <div class="option-label-main">Radiance</div>
-                  <div class="option-label-sub">$295/month · $3,150/year</div>
-                </div>
-              </label>
+        <div class="option-group">
+          <label class="option-row">
+            <input type="radio" name="plan" value="essence" checked />
+            <div>
+              <div class="option-label-main">Essence</div>
+              <div class="option-label-sub">
+                Core membership with clinician-led care, secure messaging, and ongoing guidance.
+              </div>
+              <div class="price-line">$170 / month · $1,800 / year</div>
             </div>
-          </div>
+          </label>
 
-          <div class="section">
-            <div class="section-title">Billing preference</div>
-            <div class="option-group">
-              <label class="option-row">
-                <input type="radio" name="billing" value="monthly" checked />
-                <div>
-                  <div class="option-label-main">Monthly</div>
-                  <div class="option-label-sub">Billed every month.</div>
-                </div>
-              </label>
-
-              <label class="option-row">
-                <input type="radio" name="billing" value="annual" />
-                <div>
-                  <div class="option-label-main">Annual</div>
-                  <div class="option-label-sub">One payment, with savings built in.</div>
-                </div>
-              </label>
+          <label class="option-row">
+            <input type="radio" name="plan" value="radiance" />
+            <div>
+              <div class="option-label-main">Radiance</div>
+              <div class="option-label-sub">
+                Expanded clinical access and priority support for a more proactive care experience.
+              </div>
+              <div class="price-line">$295 / month · $3,150 / year</div>
             </div>
-          </div>
-        </div>
-
-        <!-- Right column: add-ons + note + CTA -->
-        <div>
-          <div class="section">
-            <div class="section-title">Optional programs</div>
-            <div class="addons-list">
-              <label class="option-row">
-                <input type="checkbox" name="addon" value="nutrition" />
-                <div>
-                  <div class="option-label-main">Nutrition & Lifestyle Optimization</div>
-                  <div class="option-label-sub">$95/month · Practical support for food, sleep, and movement.</div>
-                </div>
-              </label>
-
-              <label class="option-row">
-                <input type="checkbox" name="addon" value="metabolic" />
-                <div>
-                  <div class="option-label-main">Metabolic Reset & Weight Support</div>
-                  <div class="option-label-sub">$175/month · Lab-informed strategies for weight, energy, and insulin sensitivity.</div>
-                </div>
-              </label>
-
-              <label class="option-row">
-                <input type="checkbox" name="addon" value="sexual" />
-                <div>
-                  <div class="option-label-main">Sexual Health & Vitality</div>
-                  <div class="option-label-sub">$80/month · Support for desire, comfort, and confidence.</div>
-                </div>
-              </label>
-
-              <label class="option-row">
-                <input type="checkbox" name="addon" value="skinhair" />
-                <div>
-                  <div class="option-label-main">Skin & Hair Wellness</div>
-                  <div class="option-label-sub">$70/month · Internal support for skin clarity and hair strength.</div>
-                </div>
-              </label>
-            </div>
-
-            <p class="note">
-              A six-month minimum membership is required for clinical continuity. You may request cancellation after this period;
-              all requests are reviewed by the clinic and are not processed automatically through the portal.
-            </p>
-          </div>
-
-          <div class="divider"></div>
-          <!-- Agreement checkbox -->
-          <div class="agreement-row">
-            <label class="agreement-label">
-              <input type="checkbox" id="agreement-checkbox">
-              <span>
-                I have read and agree to the
-                <a href="https://heatwavehealth.com/membership-agreement"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                  Heat Wave Health Membership Agreement
-                </a>.
-              </span>
-            </label>
-          </div>
-          <div class="agreement-row">
-  <label class="agreement-label">
-    <span style="min-width: 88px; display:inline-block;">My state:</span>
-    <select id="service-state"
-      style="padding:6px 10px;border-radius:10px;border:1px solid rgba(0,0,0,0.15);background:#fff;">
-      <option value="">Select…</option>
-      <option value="WA">Washington (WA)</option>
-      <option value="OR">Oregon (OR)</option>
-    </select>
-  </label>
-</div>
-
-          <div class="cta-row">
-            <button id="checkout-button" class="primary-btn">
-              Continue to secure payment
-            </button>
-            <div class="secure-text">
-              Processed by Stripe. Your card details never touch our servers.
-            </div>
-          </div>
-          <p id="error-message"></p>
+          </label>
         </div>
       </div>
+
+      <div class="section">
+        <div class="section-title">Billing preference</div>
+
+        <div class="option-group">
+          <label class="option-row">
+            <input type="radio" name="billing" value="monthly" checked />
+            <div>
+              <div class="option-label-main">Monthly</div>
+              <div class="option-label-sub">Billed every month. Cancelation requests are reviewed by the clinic.</div>
+            </div>
+          </label>
+
+          <label class="option-row">
+            <input type="radio" name="billing" value="annual" />
+            <div>
+              <div class="option-label-main">Annual</div>
+              <div class="option-label-sub">One payment for the year, with savings built in.</div>
+            </div>
+          </label>
+        </div>
+
+        <p class="note">
+          Optional programs are billed monthly and can be added after enrollment.
+        </p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section">
+        <div class="section-title">Eligibility</div>
+
+        <div class="state-row">
+          <label for="service-state">Where are you located?</label>
+          <select id="service-state">
+            <option value="">Select…</option>
+            <option value="WA">Washington (WA)</option>
+            <option value="OR">Oregon (OR)</option>
+          </select>
+        </div>
+
+        <p class="note">
+          Heat Wave Health currently provides care to members physically located in Washington and Oregon.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Agreement</div>
+
+        <div class="agreement-row">
+          <label class="agreement-label">
+            <input type="checkbox" id="agreement-checkbox">
+            <span>
+              By continuing, I confirm I have read and agree to the
+              <a href="https://heatwavehealth.com/membership-agreement" target="_blank" rel="noopener noreferrer">
+                Heat Wave Health Membership Agreement
+              </a>.
+            </span>
+          </label>
+        </div>
+
+        <div class="cta-row">
+          <button id="checkout-button" class="primary-btn">
+            Continue to secure payment
+          </button>
+          <div class="secure-text">
+            Processed by Stripe. Your card details never touch our servers.
+          </div>
+        </div>
+
+        <p id="error-message"></p>
+      </div>
+
     </div>
   </div>
 
   <script>
-    // Replace with your real TEST publishable key (pk_test_...)
     let stripe;
 
-async function initStripe() {
-  const res = await fetch("/api/config");
-  const data = await res.json();
+    async function initStripe() {
+      const res = await fetch("/api/config");
+      const data = await res.json();
 
-  if (!data.publishableKey) {
-    throw new Error("Stripe publishable key not available.");
-  }
+      if (!data.publishableKey) throw new Error("Missing publishable key");
+      stripe = Stripe(data.publishableKey);
+    }
 
-  stripe = Stripe(data.publishableKey);
-}
-
-initStripe().catch((e) => {
-  const errorEl = document.getElementById("error-message");
-  if (errorEl) errorEl.textContent = "Payment setup error. Please contact the clinic.";
-  console.error(e);
-});
-
-    document.getElementById('checkout-button').addEventListener('click', async (e) => {
-  const planEl = document.querySelector('input[name="plan"]:checked');
-  const billingEl = document.querySelector('input[name="billing"]:checked');
-  const addonEls = document.querySelectorAll('input[name="addon"]:checked');
-  const agreementCheckbox = document.getElementById('agreement-checkbox');
-  const stateSelect = document.getElementById('service-state');
-  const errorEl = document.getElementById('error-message');
-  
-  if (!stripe) {
-    errorEl.textContent = "Payment is still loading. Please try again in a moment.";
-    return;
-  }
-
-  errorEl.textContent = '';
-
-  // HARD BLOCK: Agreement not checked
-  if (!agreementCheckbox || agreementCheckbox.checked !== true) {
-    errorEl.textContent = 'You must agree to the Membership Agreement before continuing.';
-    return; // STOP EXECUTION RIGHT HERE
-  }
-const service_state = (stateSelect?.value || '').trim();
-if (!service_state) {
-  errorEl.textContent = 'Please select your state before continuing.';
-  return;
-}
-  const plan = planEl ? planEl.value : null;
-  const billing = billingEl ? billingEl.value : null;
-  const addons = Array.from(addonEls).map(el => el.value);
-
-  // HARD BLOCK: Plan & billing not selected
-  if (!plan || !billing) {
-    errorEl.textContent = 'Please select a membership and billing option.';
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan, billing, addons, service_state })
+    initStripe().catch((e) => {
+      console.error(e);
+      const errorEl = document.getElementById("error-message");
+      if (errorEl) errorEl.textContent = "Payment setup error. Please contact the clinic.";
     });
 
-    const data = await response.json();
+    document.getElementById('checkout-button').addEventListener('click', async () => {
+      const planEl = document.querySelector('input[name="plan"]:checked');
+      const billingEl = document.querySelector('input[name="billing"]:checked');
+      const agreementCheckbox = document.getElementById('agreement-checkbox');
+      const stateSelect = document.getElementById('service-state');
+      const errorEl = document.getElementById('error-message');
 
-    if (!response.ok || data.error) {
-      throw new Error(data.error || 'Server error');
-    }
+      errorEl.textContent = '';
 
-    const result = await stripe.redirectToCheckout({ sessionId: data.id });
+      if (!stripe) {
+        errorEl.textContent = "Payment is still loading. Please try again in a moment.";
+        return;
+      }
 
-    if (result.error) {
-      errorEl.textContent = result.error.message;
-    }
-  } catch (err) {
-    console.error(err);
-    errorEl.textContent = 'Payment could not be started. Please contact the clinic.';
-  }
-});
+      if (!agreementCheckbox?.checked) {
+        errorEl.textContent = "You must agree to the Membership Agreement before continuing.";
+        return;
+      }
+
+      const service_state = (stateSelect?.value || '').trim();
+      if (!service_state) {
+        errorEl.textContent = "Please select WA or OR before continuing.";
+        return;
+      }
+
+      const plan = planEl ? planEl.value : null;
+      const billing = billingEl ? billingEl.value : null;
+
+      if (!plan || !billing) {
+        errorEl.textContent = "Please select a membership and billing option.";
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan, billing, service_state })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || data.error) throw new Error(data.error || 'Server error');
+
+        const result = await stripe.redirectToCheckout({ sessionId: data.id });
+        if (result.error) errorEl.textContent = result.error.message;
+
+      } catch (err) {
+        console.error(err);
+        errorEl.textContent = "Payment could not be started. Please contact the clinic.";
+      }
+    });
   </script>
 </body>
 </html>
