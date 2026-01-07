@@ -437,6 +437,17 @@
               </span>
             </label>
           </div>
+          <div class="agreement-row">
+  <label class="agreement-label">
+    <span style="min-width: 88px; display:inline-block;">My state:</span>
+    <select id="service-state"
+      style="padding:6px 10px;border-radius:10px;border:1px solid rgba(0,0,0,0.15);background:#fff;">
+      <option value="">Select…</option>
+      <option value="WA">Washington (WA)</option>
+      <option value="OR">Oregon (OR)</option>
+    </select>
+  </label>
+</div>
 
           <div class="cta-row">
             <button id="checkout-button" class="primary-btn">
@@ -478,6 +489,7 @@ initStripe().catch((e) => {
   const billingEl = document.querySelector('input[name="billing"]:checked');
   const addonEls = document.querySelectorAll('input[name="addon"]:checked');
   const agreementCheckbox = document.getElementById('agreement-checkbox');
+  const stateSelect = document.getElementById('service-state');
   const errorEl = document.getElementById('error-message');
   
   if (!stripe) {
@@ -492,7 +504,11 @@ initStripe().catch((e) => {
     errorEl.textContent = 'You must agree to the Membership Agreement before continuing.';
     return; // STOP EXECUTION RIGHT HERE
   }
-
+const service_state = (stateSelect?.value || '').trim();
+if (!service_state) {
+  errorEl.textContent = 'Please select WA or OR before continuing.';
+  return;
+}
   const plan = planEl ? planEl.value : null;
   const billing = billingEl ? billingEl.value : null;
   const addons = Array.from(addonEls).map(el => el.value);
@@ -507,7 +523,7 @@ initStripe().catch((e) => {
     const response = await fetch('/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan, billing, addons })
+      body: JSON.stringify({ plan, billing, addons, service_state })
     });
 
     const data = await response.json();
