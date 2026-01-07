@@ -86,18 +86,30 @@ module.exports = async (req, res) => {
 
     const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
-    const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
-      line_items,
-      success_url: `${FRONTEND_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${FRONTEND_URL}/cancel.html`,
-      billing_address_collection: 'required',
-      allow_promotion_codes: true
-    });
+   const isAnnual = billing === 'annual';
+const hasAddons = selectedAddons.length > 0;
 
-    res.status(200).json({ id: session.id });
-  } catch (err) {
-    console.error('Error in create-checkout-session:', err);
-    res.status(500).json({ error: err.message || 'Server error' });
+const session = await stripe.checkout.sessions.create({
+  mode: 'subscription',
+  line_items,
+  success_url: `${FRONTEND_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+  cancel_url: `${FRONTEND_URL}/cancel.html`,
+  billing_address_collection: 'required',
+  allow_promotion_codes: true,
+
+  // IMPORTANT: metadata must live here so the webhook can read it from the Subscription
+  subscription_data: {
+    metadata: {
+      plan: plan === 'essence' ? 'Essence' : plan === 'radiance' ? 'Radiance' : String(plan || ''),
+      billing: isAnnual ? 'Annual' : 'Monthly',
+      addons: hasAddons ? selectedAddons.join(', ') : 'None',
+
+      // This is the switch the webhook uses
+      addons_deferred: (isAnnual && hasAddons) ? 'true' : 'false',
+
+      // Optional (only include if you’re collecting them on frontend)
+      // service_state: String(service_state || ''),
+      // state_attestation: 'true'
+    }
   }
-};
+});
