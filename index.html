@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Heat Wave Health – Join</title>
+  <title>Heat Wave Health – Membership</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Stripe -->
@@ -75,41 +75,30 @@
       .card { padding: 34px 40px 36px; }
     }
 
-    .header {
-      margin-bottom: 22px;
-    }
+    .header { margin-bottom: 22px; }
 
+    /* Wordmark ~20% larger than prior */
     .hero-logo {
       display: block;
-      margin: 0 auto 10px;
-      width: 48%;
-      max-width: 340px;
+      margin: 0 auto 12px;
+      width: 58%;
+      max-width: 410px;
       height: auto;
     }
 
     @media (min-width: 900px) {
       .hero-logo {
-        width: 52%;
-        max-width: 380px;
+        width: 62%;
+        max-width: 460px;
         margin-bottom: 14px;
       }
     }
 
-    h1 {
-      font-family: "Beautique Display", serif;
-      font-weight: normal;
-      letter-spacing: 0.05em;
-      font-size: clamp(2rem, 3.4vw, 3rem);
-      margin: 0 0 8px;
-      color: var(--hw-text);
-      text-align: left;
-    }
-
     .subtitle {
-      font-size: 0.95rem;
-      line-height: 1.6;
+      font-size: 0.98rem;
+      line-height: 1.65;
       margin: 0;
-      max-width: 44rem;
+      max-width: 46rem;
     }
 
     .divider {
@@ -118,9 +107,7 @@
       margin: 18px 0;
     }
 
-    .section {
-      margin-top: 18px;
-    }
+    .section { margin-top: 18px; }
 
     .section-title {
       font-family: "Beautique Display", serif;
@@ -198,16 +185,38 @@
       opacity: 0.92;
     }
 
-    /* Agreement rows */
+    /* Agreement + State inline */
     .agreement-row {
       margin-top: 10px;
       font-size: 0.82rem;
+    }
+
+    .agreement-flex {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--hw-border);
+      background: rgba(241, 236, 225, 0.7);
+    }
+
+    @media (min-width: 640px) {
+      .agreement-flex {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
     }
 
     .agreement-label {
       display: flex;
       align-items: flex-start;
       gap: 8px;
+      margin: 0;
+      flex: 1;
+      min-width: 240px;
     }
 
     .agreement-label input[type="checkbox"] {
@@ -222,36 +231,29 @@
       color: var(--hw-text);
     }
 
-    .agreement-label a:hover {
-      text-decoration-thickness: 2px;
-    }
+    .agreement-label a:hover { text-decoration-thickness: 2px; }
 
-    /* State dropdown line */
-    .state-row {
+    .state-inline {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--hw-border);
-      background: rgba(241, 236, 225, 0.7);
+      flex-shrink: 0;
     }
 
-    .state-row label {
-      font-size: 0.84rem;
+    .state-inline label {
+      font-size: 0.82rem;
       font-weight: 600;
-      min-width: 130px;
+      white-space: nowrap;
     }
 
-    .state-row select {
-      flex: 1;
+    .state-inline select {
       padding: 8px 10px;
       border-radius: 10px;
-      border: 1px solid rgba(0,0,0,0.2);
+      border: 1px solid rgba(0,0,0,0.22);
       background: #fff;
       font-family: "Montserrat", sans-serif;
       font-size: 0.9rem;
+      min-width: 190px;
     }
 
     .cta-row {
@@ -318,11 +320,10 @@
       <div class="header">
         <img src="/hw-wordmark.svg" alt="Heat Wave Health" class="hero-logo">
 
-        <h1>Join Heat Wave Health</h1>
-
         <p class="subtitle">
-          Choose your membership and billing preference below. After enrollment, you’ll have the option to add
-          optional monthly programs (Nutrition, Metabolic Health, Sexual Wellness, Skin & Hair) to personalize care.
+          You’re about to make a powerful choice for yourself — the kind that changes how you feel in your body,
+          your energy, and your confidence. This is you deciding you matter. We’re honored to care for you as you
+          come back home to yourself.
         </p>
       </div>
 
@@ -362,7 +363,7 @@
             <input type="radio" name="billing" value="monthly" checked />
             <div>
               <div class="option-label-main">Monthly</div>
-              <div class="option-label-sub">Billed every month. Cancelation requests are reviewed by the clinic.</div>
+              <div class="option-label-sub">Billed every month. Cancellation requests are reviewed by the clinic.</div>
             </div>
           </label>
 
@@ -374,44 +375,40 @@
             </div>
           </label>
         </div>
-
-        <p class="note">
-          Optional programs are billed monthly and can be added after enrollment.
-        </p>
       </div>
 
       <div class="divider"></div>
 
       <div class="section">
-        <div class="section-title">Eligibility</div>
-
-        <div class="state-row">
-          <label for="service-state">Where are you located?</label>
-          <select id="service-state">
-            <option value="">Select…</option>
-            <option value="WA">Washington (WA)</option>
-            <option value="OR">Oregon (OR)</option>
-          </select>
-        </div>
-
-        <p class="note">
-          Heat Wave Health currently provides care to members physically located in Washington and Oregon.
-        </p>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Agreement</div>
+        <div class="section-title">Agreement & location</div>
 
         <div class="agreement-row">
-          <label class="agreement-label">
-            <input type="checkbox" id="agreement-checkbox">
-            <span>
-              By continuing, I confirm I have read and agree to the
-              <a href="https://heatwavehealth.com/membership-agreement" target="_blank" rel="noopener noreferrer">
-                Heat Wave Health Membership Agreement
-              </a>.
-            </span>
-          </label>
+          <div class="agreement-flex">
+
+            <label class="agreement-label">
+              <input type="checkbox" id="agreement-checkbox">
+              <span>
+                By continuing, I confirm I have read and agree to the
+                <a href="https://heatwavehealth.com/membership-agreement" target="_blank" rel="noopener noreferrer">
+                  Heat Wave Health Membership Agreement
+                </a>.
+              </span>
+            </label>
+
+            <div class="state-inline">
+              <label for="service-state">My state:</label>
+              <select id="service-state">
+                <option value="">Select…</option>
+                <option value="WA">Washington (WA)</option>
+                <option value="OR">Oregon (OR)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <p class="note" style="margin-top:10px;">
+            Heat Wave Health currently provides care to members physically located in Washington and Oregon.
+          </p>
         </div>
 
         <div class="cta-row">
@@ -435,7 +432,6 @@
     async function initStripe() {
       const res = await fetch("/api/config");
       const data = await res.json();
-
       if (!data.publishableKey) throw new Error("Missing publishable key");
       stripe = Stripe(data.publishableKey);
     }
@@ -487,7 +483,6 @@
         });
 
         const data = await response.json();
-
         if (!response.ok || data.error) throw new Error(data.error || 'Server error');
 
         const result = await stripe.redirectToCheckout({ sessionId: data.id });
