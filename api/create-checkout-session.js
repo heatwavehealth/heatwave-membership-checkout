@@ -109,7 +109,7 @@ const billingLabel =
   mode: 'subscription',
 
   // Allows annual base + monthly add-ons (flexible billing)
- subscription_data: {
+subscription_data: {
   billing_mode: { type: 'flexible' },
   metadata: {
     plan: String(plan || ''),
