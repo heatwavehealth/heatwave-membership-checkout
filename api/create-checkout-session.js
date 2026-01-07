@@ -112,8 +112,8 @@ const billingLabel =
   subscription_data: {
     billing_mode: { type: 'flexible' },
     metadata: {
-      plan: String(plan || ''),
-      billing: billing === 'monthly' ? 'Monthly' : 'Annual',
+      plan: planLabel,
+      billing: billingLabel,
       addons: (selectedAddons && selectedAddons.length)
         ? selectedAddons.join(', ')
         : 'None',
@@ -130,6 +130,7 @@ const billingLabel =
   billing_address_collection: 'required',
   allow_promotion_codes: true
 });
+    res.status(200).json({ id: session.id });
 
   // 👇 HUMAN-READABLE METADATA FOR MAKE
 metadata: {
