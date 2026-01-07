@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Welcome to Heat Wave Health</title>
+  <title>Heat Wave Health – Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Montserrat -->
+  <!-- Montserrat (body font) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -14,131 +14,275 @@
   >
 
   <style>
+    /* ===== Custom fonts – paths match your uploaded files ===== */
     @font-face {
       font-family: "Beautique Display";
       src: url("/Beautique Display/BeautiqueDisplay-Regular.otf") format("opentype");
+      font-weight: normal;
+      font-style: normal;
     }
 
     @font-face {
       font-family: "Omnes Pro";
       src: url("/omnes-2/Omnes Regular.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
     }
 
     :root {
       --hw-bg: #F1ECE1;
       --hw-card: #EEE3D2;
       --hw-accent: #964605;
+      --hw-accent-dark: #2A1D09;
       --hw-text: #000000;
       --hw-border: rgba(0, 0, 0, 0.15);
-      --hw-radius: 18px;
+      --hw-radius-xl: 18px;
     }
+
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
+      padding: 0;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--hw-bg);
-      font-family: "Montserrat", system-ui, sans-serif;
+      background-color: var(--hw-bg);
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--hw-text);
+      letter-spacing: 0.01em;
     }
 
     .shell {
-      max-width: 720px;
       width: 100%;
+      max-width: 920px;
       padding: 24px;
     }
 
     .card {
-      background: var(--hw-card);
+      background-color: var(--hw-card);
+      border-radius: var(--hw-radius-xl);
       border: 1px solid var(--hw-border);
-      border-radius: var(--hw-radius);
-      box-shadow: 0 18px 45px rgba(0,0,0,0.06);
-      padding: 36px 32px 40px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.06);
+      padding: 28px 22px 30px;
+      text-align: left;
+    }
+
+    @media (min-width: 768px) {
+      .card { padding: 34px 44px 40px; }
+    }
+
+    /* Wordmark */
+    .hero-logo {
+      display: block;
+      margin: 0 auto 18px;
+      width: 64%;
+      max-width: 505px;
+      height: auto;
+    }
+    @media (min-width: 900px) {
+      .hero-logo {
+        width: 68%;
+        max-width: 560px;
+      }
+    }
+
+    .title {
+      font-family: "Beautique Display", serif;
+      font-weight: normal;
+      letter-spacing: 0.05em;
+      font-size: clamp(2.0rem, 3.2vw, 2.7rem);
+      margin: 0 0 10px;
+    }
+
+    .subtitle {
+      font-size: 1.0rem;
+      line-height: 1.7;
+      margin: 0;
+      max-width: 46rem;
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+    @media (min-width: 768px) {
+      .subtitle {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--hw-border);
+      margin: 26px 0;
+    }
+
+    .section-title {
+      font-family: "Beautique Display", serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+    }
+
+    .steps {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.65;
+      font-size: 0.95rem;
+      max-width: 52rem;
+    }
+
+    .steps li { margin: 8px 0; }
+
+    .note {
+      margin-top: 12px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      opacity: 0.92;
+      max-width: 52rem;
+    }
+
+    /* Add-ons callout */
+    .addon-box {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--hw-border);
+      background: rgba(241, 236, 225, 0.7);
+    }
+
+    .addon-box strong {
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+    }
+
+    .addon-box p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .cta-area {
+      margin-top: 26px;
       text-align: center;
     }
 
-    .hero-logo {
-      display: block;
-      margin: 0 auto 14px;
-      width: 52%;
-      max-width: 320px;
-      height: auto;
-    }
-
-    h1 {
-      font-family: "Beautique Display", serif;
-      font-weight: normal;
-      letter-spacing: 0.06em;
-      margin: 6px 0 14px;
-      font-size: clamp(1.9rem, 3vw, 2.4rem);
-    }
-
-    p {
-      font-size: 0.95rem;
-      margin: 0 0 20px;
-      line-height: 1.6;
-    }
-
-    .next-steps {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid var(--hw-border);
-      font-size: 0.85rem;
-      line-height: 1.6;
-    }
-
-    .button-row {
-      margin-top: 24px;
-    }
-
-    a.btn {
-      display: inline-block;
-      padding: 8px 20px;
+    button.primary-btn {
+      padding: 9px 22px;
       border-radius: 999px;
+      border: none;
       background: var(--hw-accent);
       color: #F1ECE1;
-      text-decoration: none;
       font-family: "Omnes Pro", "Montserrat", sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 500;
       letter-spacing: 0.07em;
       text-transform: uppercase;
-      box-shadow: 0 5px 14px rgba(150,70,5,0.25);
+      cursor: pointer;
+      box-shadow: 0 5px 14px rgba(150, 70, 5, 0.25);
+      transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+      white-space: nowrap;
     }
 
-    a.btn:hover {
-      opacity: 0.92;
+    button.primary-btn:hover {
+      background: var(--hw-accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(150, 70, 5, 0.45);
     }
+
+    button.primary-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 14px rgba(150, 70, 5, 0.35);
+    }
+
+    .secure-text {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      opacity: 0.95;
+      line-height: 1.4;
+    }
+
+    .tiny {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      opacity: 0.9;
+      text-align: center;
+      word-break: break-word;
+    }
+
+    a {
+      color: var(--hw-text);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    a:hover { text-decoration-thickness: 2px; }
   </style>
 </head>
 
 <body>
   <div class="shell">
     <div class="card">
-
       <img src="/hw-wordmark.svg" alt="Heat Wave Health" class="hero-logo">
 
-      <h1>Welcome</h1>
+      <h1 class="title">Welcome.</h1>
 
-      <p>
-        We have successfully received your membership enrollment! 
+      <p class="subtitle">
+        You didn’t arrive here by accident. This is a moment of self-trust — a decision to care for your body with intention,
+        compassion, and expert guidance. We’re honored to be part of this chapter, supporting you as you reconnect with your
+        strength, vitality, and sense of self.
       </p>
 
-     <div class="next-steps">
-  <strong>A note from your clinical team</strong><br><br>
-  We’re so glad you’re here.
-  We look forward to walking this next chapter with you and helping you feel more like
-  yourself again — informed, supported, and healthy.<br><br>
-  You’ll hear from us within one to two business days to arrange your first visit.
-  Sincerely,<br>
-  The Heat Wave Health Clinical Team
-</div>
+      <div class="divider"></div>
 
-      <div class="button-row">
-        <a href="https://heatwavehealth.com" class="btn">Return to Website</a>
+      <div>
+        <div class="section-title">What happens next</div>
+        <ol class="steps">
+          <li>Watch for your welcome email with access instructions and your next steps.</li>
+          <li>Log into Practice Better to complete your onboarding forms.</li>
+          <li>Schedule your first visit — we’ll review your goals and build your care plan together.</li>
+        </ol>
+
+        <p class="note">
+          If you don’t see the email within a few minutes, check spam/junk. If it’s still missing, contact us and we’ll help right away.
+        </p>
       </div>
+
+      <div class="addon-box">
+        <strong>Want to personalize your care even more?</strong>
+        <p>
+          After you enroll, you’ll have the option to add monthly programs (like Nutrition, Metabolic Support, Sexual Health, or Skin & Hair)
+          to tailor your plan. You can choose what fits now — and adjust later.
+        </p>
+      </div>
+
+      <div class="cta-area">
+        <!-- CHANGE THIS LINK once your add-ons page exists -->
+        <button class="primary-btn" id="addons-btn">Explore optional programs</button>
+        <div class="secure-text">
+          You can skip this for now — you’ll have opportunities to add programs later.
+        </div>
+      </div>
+
+      <div class="tiny" id="session-line" aria-live="polite"></div>
     </div>
   </div>
+
+  <script>
+    // Show session_id (helpful for support; not PHI)
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id");
+    const line = document.getElementById("session-line");
+    if (sessionId) {
+      line.textContent = "Confirmation reference: " + sessionId;
+    }
+
+    // Add-ons button (replace with your actual add-ons page when ready)
+    document.getElementById("addons-btn").addEventListener("click", () => {
+      window.location.href = "/addons.html";
+    });
+  </script>
 </body>
 </html>
